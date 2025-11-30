@@ -1,0 +1,26 @@
+# Environment variables (ВАЖНО - не загружаем токены!)
+.env
+
+# Database
+*.db
+finquest.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
