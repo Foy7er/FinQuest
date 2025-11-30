@@ -51,5 +51,22 @@ if __name__ == '__main__':
     application.add_handler(handlers_shop.get_shop_callback_handler())
     application.add_handler(MessageHandler(filters.Regex('^👤 Герой$'), handlers_menu.hero_info))
     
-    print("Bot is running...")
-    application.run_polling()
+    # ... (handlers setup remains the same)
+
+    # Check if running in Cloud (Render)
+    webhook_url = os.getenv('RENDER_EXTERNAL_URL') # Render sets this automatically
+    port = int(os.getenv('PORT', '8443'))
+
+    if webhook_url:
+        # Webhook Mode (for Render)
+        print(f"Starting Webhook on port {port}...")
+        application.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            url_path=token,
+            webhook_url=f"{webhook_url}/{token}"
+        )
+    else:
+        # Polling Mode (Local)
+        print("Bot is running in POLLING mode...")
+        application.run_polling()
